@@ -1,0 +1,15 @@
+.center-buttons {
+    margin: 2rem auto;
+    width: 50%;
+}
+
+#products {
+    border-bottom: 1px solid;
+    border-bottom-color: #68b0ab;
+    height: 5rem;
+}
+
+.center-class {
+    margin: auto;
+    width: 20%;
+}

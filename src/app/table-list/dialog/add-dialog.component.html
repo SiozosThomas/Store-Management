@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div id="products" class="col-lg-4" *ngFor="let product of products; let i=index">
+      <div>
+        <input type="checkbox" class="center-class"  [(ngModel)]="selectedProducts[i]">
+        <label style="margin-left: .2rem;">{{ product.name }} {{ product.price }}</label>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="center-buttons">
+  <div class="center-buttons">
+    <div class="row">
+      <div class="col-lg-6 col-12" style="margin-top: .5rem;">
+        <button type="button" class="btn btn-outline-success" (click)="saveOrder()">Save</button>
+      </div>
+      <div class="col-lg-6 col-12" style="margin-top: .5rem;">
+        <button type="button" class="btn btn-outline-danger" (click)="cancel()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

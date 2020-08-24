@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="row" *ngIf="tables.length > 0">
+        <div class="col-lg-4 col-md-6 col-sm-12 col-12" *ngFor="let table of tables; let i = index; trackBy: trackById">
+            <div class="card" style="width: 18rem; margin-bottom: 2rem;">
+                <!-- <img src="../../assets/primeng-logo.png" class="card-img-top" alt="Card"> -->
+                <div class="card-body">
+                  <h5 class="card-title">Name: {{ table.name }}</h5>
+                  <h5 class="card-title">Number: {{ table.number }}</h5>
+                  <p class="card-text">List with items:</p>
+                    <ul class="list-group margin_button">
+                      <li class="list-group-item" *ngFor="let order of table.orders; let j = index;">
+                        {{order.quantity }}x {{ order.name }} : {{ order.price }}.00 €
+                        <button type="button" class="close" aria-label="Close" style="color: red;"
+                          (click)="deleteOrder(order, i, j)">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </li>
+                    </ul>
+                  <button mat-raised-button class="btn btn-primary" (click)="addProduct(i)">Add Product</button>
+                  <button mat-raised-button class="btn btn-primary" (click)="deleteTable(i)">Delete Table</button>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>

@@ -9,6 +9,8 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import {MatTableModule} from '@angular/material/table';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -17,6 +19,7 @@ import { AddDialogComponent } from './table-list/dialog/add-dialog.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NewTableComponent } from './new-table/new-table.component';
 import { ProductsComponent } from './products/products.component';
+import { DialogComponent } from './products/dialog/dialog.component';
 
 const appRoutes: Routes = [
   { path: '', component: TableListComponent },
@@ -31,7 +34,8 @@ const appRoutes: Routes = [
     TableListComponent,
     AddDialogComponent,
     NewTableComponent,
-    ProductsComponent
+    ProductsComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +49,8 @@ const appRoutes: Routes = [
     MatCheckboxModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxUiLoaderModule,
+    MatTableModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],

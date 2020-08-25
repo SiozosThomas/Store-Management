@@ -4,12 +4,23 @@
 }
 
 #products {
-    border-bottom: 1px solid;
-    border-bottom-color: #68b0ab;
+    border: 1px solid;
+    border-radius: 20px;
+    border-color: #68b0ab;
     height: 5rem;
 }
 
 .center-class {
     margin: auto;
     width: 20%;
+}
+
+#add-button {
+    background-color: #056676;
+    color: white;
+}
+
+#delete-button {
+    background-color: #ea5455;
+    color: white;
 }

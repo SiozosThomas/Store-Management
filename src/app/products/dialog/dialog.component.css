@@ -5,4 +5,9 @@ input.ng-invalid.ng-touched {
 #add-button {
     background-color: #056676;
     color: white;
-  }
+}
+
+#delete-button {
+    background-color: #ea5455;
+    color: white;
+}

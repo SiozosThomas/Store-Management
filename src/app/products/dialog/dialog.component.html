@@ -1,0 +1,38 @@
+<div class="container">
+    <form [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="name">Product Name</label>
+            <input
+                type="text"
+                id="name"
+                formControlName="name"
+                class="form-control">
+            <span
+            *ngIf="!addProductForm.get('name').valid && addProductForm.get('name').dirty"
+            class="help-block">
+            Please Enter a Product Name</span>
+        </div>
+        <div class="form-group">
+            <label for="number">Product Price</label>
+            <input
+                type="number"
+                name="price"
+                formControlName="price"
+                class="form-control">
+            <span
+            *ngIf="!addProductForm.get('price').valid && addProductForm.get('price').touched"
+            class="help-block">
+            Please Enter a Product Price</span>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="span6" style="float: none; margin: 0 auto;">
+                    <button class="btn" id="add-button" type="submit" [disabled]="!addProductForm.valid">Save</button>
+                </div>
+                <div class="span6" style="float: none; margin: 0 auto; margin-top: .5rem;" >
+                    <button type="button" class="btn" id="delete-button" (click)="cancel()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -27,13 +27,22 @@ export class ProductsService {
     }
 
     addProduct(product: Product) {
-        this.http.post<{message: string, product: Product}>("http://localhost:3000/api/products", product)
-            .subscribe(resData => {
+        const request = this.http.post<{message: string, product: Product}>("http://localhost:3000/api/products", product);
+        request.subscribe(resData => {
                 console.log(resData.message);
                 console.log("Created Product: ");
-                console.log(resData.product);
-                this.products.push(product)
+                console.log(product);
+                this.getProducts();
                 this.productsUpdated.next([...this.products]);
         });
     }
+
+    deleteProduct(productId: string) {
+        this.http.delete<{message: string}>("http://localhost:3000/api/products/" + productId)
+          .subscribe(res => {
+            console.log(res.message);
+            this.getProducts();
+            this.productsUpdated.next([...this.products]);
+          });
+      }
 }

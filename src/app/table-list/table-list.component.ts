@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Table } from './table.model';
 import {MatDialog} from '@angular/material/dialog';
 import { Product } from './product.model';
+import {NgxUiLoaderService } from 'ngx-ui-loader';
 
 import { TablesService } from './tables.service';
 import { Subscription } from 'rxjs';
@@ -18,34 +19,27 @@ export class TableListComponent implements OnInit, OnDestroy {
   private tablesSub: Subscription;
   tables: Table[];
 
-  constructor(private tableService: TablesService, public dialog: MatDialog) {
+  constructor(private tablesService: TablesService,
+      public dialog: MatDialog,
+      private ngxService: NgxUiLoaderService) {
     this.tables = [];
   }
 
   ngOnInit(): void {
-    this.tableService.getTables();
-    this.tablesSub = this.tableService.getTableUpdatedListener()
+    this.ngxService.start();
+    this.tablesService.getTables();
+    this.tablesSub = this.tablesService.getTableUpdatedListener()
       .subscribe((tables: Table[]) => {
         this.tables = tables;
       });
+    this.ngxService.stop();
   }
 
-  addProduct(tableNumber: number) {
-    const order: Order = ({
-      name: "Fish",
-      price: 12,
-      quantity: 1,
-      table: 1
-    });
-    console.log(this.tables);
-    this.tableService.addProduct(order, tableNumber);
-    console.log("After");
-    console.log(this.tables);
-    
+  addProduct(table: Table) {
     const dialogRef = this.dialog.open(AddDialogComponent, {
       disableClose: true,
-      width: '80%',
-      height: '80%',
+      width: '60%',
+      height: '60%',
       data: {products: []}
     });
 
@@ -53,38 +47,30 @@ export class TableListComponent implements OnInit, OnDestroy {
       console.log('The dialog was closed');
       console.log("Data back");
       console.log(result);
+      if (result) {
+        for (let product of result.products) {
+          var order: Order = ({
+            name: product.name,
+            price: product.price,
+            quantity: 1,
+            table: table.number
+          });
+          this.tablesService.addProduct(order);
+        }
+      }
     });
-    // const order: Order = ({
-    //   name: "Fish",
-    //   price: 12,
-    //   quantity: 1,
-    //   table: 1
-    // });
-    // this.tableService.addProduct(order);
-    // this.tableService.getTables();
-    // this.tablesSub = this.tableService.getTableUpdatedListener()
-    //   .subscribe((tables: Table[]) => {
-    //     this.tables = tables;
-    // });
-    // console.log(tableNumber);
-    // const table: Table = {
-    //   name: "Test",
-    //   number: 8
-    // };
-    // this.tableService.addTable(table);
   }
 
   trackById(index: number, table: Table) {
     return table._id;
   }
 
-  deleteOrder(order: Order, tableIndex: number, orderIndex: number) {
-    this.tableService.deleteOrder(order);
-    this.tableService.deleteOrderFromTable(order, tableIndex, orderIndex);
+  deleteOrder(order: Order, tableIndex: number, orderIndex: number, table: Table) {
+    this.tablesService.deleteOrder(order, tableIndex, orderIndex, table);
   }
 
-  deleteTable(tableNumber: number) {
-
+  deleteTable(table: Table) {
+    this.tablesService.deleteTable(table);
   }
 
   ngOnDestroy(): void {

@@ -6,7 +6,6 @@ require('dotenv').config();
 
 const app = express();
 const tablesRoutes = require('./api/routes/tables');
-const ordersRoutes = require('./api/routes/orders');
 const productsRoutes = require('./api/routes/products');
 
 app.use(morgan('dev'));
@@ -40,7 +39,6 @@ mongoose.connect("mongodb+srv://" + process.env.MONGO_ADMIN +
     });
 
 app.use('/api/tables', tablesRoutes);
-app.use('/api/orders', ordersRoutes);
 app.use('/api/products', productsRoutes);
 
 app.use((req, res, next) => {

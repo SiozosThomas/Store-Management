@@ -7,61 +7,60 @@ import { Order } from './order.model';
 @Injectable({ providedIn: 'root' })
 export class TablesService {
     
-    private tables: Table[] = [];
-    private tablesUpdated = new Subject<Table[]>();
+  private tables: Table[] = [];
+  private tablesUpdated = new Subject<Table[]>();
 
-    constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
-    getTables() {
-        this.http.get<{message: string, tables: Table[]}>("http://localhost:3000/api/tables")
-        .subscribe((data) => {
-          this.tables = data.tables;
+  getTables() {
+      this.http.get<{message: string, tables: Table[]}>("http://localhost:3000/api/tables")
+      .subscribe((data) => {
+        this.tables = data.tables;
+        this.tablesUpdated.next([...this.tables]);
+    });
+  }
+
+  getTableUpdatedListener() {
+      return this.tablesUpdated.asObservable();
+  }
+
+  addTable(table: Table) {
+      this.http.post<{message: string, table: Table}>("http://localhost:3000/api/tables", table)
+        .subscribe(resData => {
+          console.log(resData.message);
+          console.log("Created table: ");
+          console.log(table);
+          this.getTables();
           this.tablesUpdated.next([...this.tables]);
       });
-    }
+  }
 
-    getTableUpdatedListener() {
-        return this.tablesUpdated.asObservable();
-    }
+  addProduct(order: Order) {
+    const request = this.http.post<{message: string, order: Order}>("http://localhost:3000/api/tables/addOrder", order);
+    request
+        .subscribe(resData => {
+          console.log(resData.message);
+          console.log("Created order: ");
+          console.log(order);
+          this.getTables();
+          this.tablesUpdated.next([...this.tables]);
+      });
+  }
 
-    addTable(table: Table) {
-        this.http.post<{message: string, table: Table}>("http://localhost:3000/api/tables", table)
-          .subscribe(resData => {
-            console.log(resData.message);
-            console.log("Created table: ");
-            console.log(table);
-            this.getTables();
-            this.tablesUpdated.next([...this.tables]);
-        });
-    }
-
-    addProduct(order: Order, tableIndex: number) {
-      const req = this.http.post<{message: string, order: Order}>("http://localhost:3000/api/orders", order);
-      req
-          .subscribe(resData => {
-            console.log(resData.message);
-            console.log("Created order: ");
-            console.log(order);
-            this.getTables();
-            this.tablesUpdated.next([...this.tables]);
-        });
-    }
-
-    deleteOrder(order: Order) {
-      this.http.delete<{message: string}>("http://localhost:3000/api/orders/" + order._id)
+  deleteOrder(order: Order, tableIndex: number, orderIndex: number, table: Table) {
+    this.http.delete<{message: string}>("http://localhost:3000/api/tables/" + order._id + "/" + table._id)
         .subscribe(res => {
-          console.log("Order removed");
-        });
-    }
+          this.tables[tableIndex].orders.splice(orderIndex, 1);
+          this.tablesUpdated.next([...this.tables]);
+    });
+  }
 
-    deleteOrderFromTable(order: Order, tableIndex: number, orderIndex: number) {
-      this.http.delete<{message: string}>("http://localhost:3000/api/tables/" + order._id)
-          .subscribe(res => {
-            // const index = this.tables[tableIndex].orders.findIndex(element => element._id = order._id);
-            // console.log("Index = " + index);
-            
-            this.tables[tableIndex].orders.splice(orderIndex, 1);
-            this.tablesUpdated.next([...this.tables]);
+  deleteTable(table: Table) {
+    this.http.delete<{message: string}>("http://localhost:3000/api/tables/" + table._id)
+      .subscribe(res => {
+        console.log(res.message);
+        this.getTables();
+        this.tablesUpdated.next([...this.tables]);
       });
   }
 }

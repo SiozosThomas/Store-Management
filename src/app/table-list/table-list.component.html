@@ -1,6 +1,12 @@
-<div class="container">
+<ngx-ui-loader
+fgsType= "cube-grid"
+fgsColor= "#ee6f57"
+fgsSize = "160"
+pbColor= "#ee6f57"
+></ngx-ui-loader>
+<div class="custom-container">
     <div class="row" *ngIf="tables.length > 0">
-        <div class="col-lg-4 col-md-6 col-sm-12 col-12" *ngFor="let table of tables; let i = index; trackBy: trackById">
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12" *ngFor="let table of tables; let i = index; trackBy: trackById">
             <div class="card" style="width: 18rem; margin-bottom: 2rem;">
                 <!-- <img src="../../assets/primeng-logo.png" class="card-img-top" alt="Card"> -->
                 <div class="card-body">
@@ -9,16 +15,16 @@
                   <p class="card-text">List with items:</p>
                     <ul class="list-group margin_button">
                       <li class="list-group-item" *ngFor="let order of table.orders; let j = index;">
-                        {{order.quantity }}x {{ order.name }} : {{ order.price }}.00 €
+                        {{ order.name }} : {{ order.price }} €
                         <button type="button" class="close" aria-label="Close" style="color: red;"
-                          (click)="deleteOrder(order, i, j)">
+                          (click)="deleteOrder(order, i, j, table)">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </li>
                     </ul>
-                  <button mat-raised-button class="btn btn-primary" (click)="addProduct(i)">Add Product</button>
-                  <button mat-raised-button class="btn btn-primary" (click)="deleteTable(i)">Delete Table</button>
                 </div>
+                <button mat-raised-button class="btn center-class" id="add-button" (click)="addProduct(table)">Add Product</button>
+                <button mat-raised-button class="btn center-class" id="delete-button" style="margin-top: .5rem;" (click)="deleteTable(table)">Delete Table</button>
               </div>
         </div>
     </div>

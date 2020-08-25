@@ -1,0 +1,14 @@
+table {
+    width: 90%;
+    margin: auto;
+  }
+
+.center {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+#add-button {
+  background-color: #056676;
+  color: white;
+}

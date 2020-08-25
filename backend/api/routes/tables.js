@@ -58,9 +58,55 @@ router.post('/', (req, res, next) => {
     })
 });
 
-router.delete('/:orderId', (req, res, next) => {
+router.post('/addOrder', (req, res, next) => {
+    const order = new Order({
+        _id: new mongoose.Types.ObjectId(),
+        name: req.body.name,
+        price: req.body.price,
+        quantity: req.body.quantity,
+        table: req.body.table
+    });
+    Table.findOne({
+        number: order.table
+    })
+    .exec()
+    .then((result) => {
+        if (result) {
+            Table.updateOne(
+                { number: order.table },
+                { $push: { orders: order }}
+            )
+            .exec()
+            .then(() => {
+                res.status(201).json({
+                    message: "Handling POST requests to /orders and saving to tables",
+                    createdOrder: order
+                });
+            })
+            .catch(err => {
+                res.status(500).json({
+                    message: err.message,
+                    createdOrder: null
+                });
+            });
+        } else {
+            res.status(404).json({
+                message: "Not table found with number " + order.table,
+                createdOrder: null
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).json({
+            message: err.message,
+            createdOrder: null
+        });
+    });
+});
+
+router.delete('/:orderId/:tableId', (req, res, next) => {
     Table.update(
-        {  },
+        { _id: ObjectId(req.params.tableId) },
         { $pull : {orders : {_id: ObjectId(req.params.orderId)}}}
     )
     .exec()
@@ -76,6 +122,21 @@ router.delete('/:orderId', (req, res, next) => {
                 message: err.message
             });
         });
-})
+});
+
+router.delete('/:tableId', (req, res, next) => {
+    Table.deleteOne({ _id: ObjectId(req.params.tableId)})
+    .exec()
+    .then(() => {
+        res.status(200).json({
+            message: "Table with id: " + req.params.tableId + " deleted"
+        });
+    })
+    .catch(err => {
+        res.status(500).json({
+            message: err.message
+        });
+    })
+});
 
 module.exports = router;

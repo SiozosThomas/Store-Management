@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Table } from './table.model';
 import {MatDialog} from '@angular/material/dialog';
-import { Product } from './product.model';
 import {NgxUiLoaderService } from 'ngx-ui-loader';
 
 import { TablesService } from './tables.service';

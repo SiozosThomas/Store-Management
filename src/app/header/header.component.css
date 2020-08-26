@@ -1,3 +1,7 @@
 .header_space {
     margin-bottom: 2rem;
 }
+
+.navbar-dark {
+    background-color: #00334e;
+}

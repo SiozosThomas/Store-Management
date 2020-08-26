@@ -7,6 +7,7 @@ require('dotenv').config();
 const app = express();
 const tablesRoutes = require('./api/routes/tables');
 const productsRoutes = require('./api/routes/products');
+const userRoutes = require('./api/routes/users');
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
@@ -40,6 +41,7 @@ mongoose.connect("mongodb+srv://" + process.env.MONGO_ADMIN +
 
 app.use('/api/tables', tablesRoutes);
 app.use('/api/products', productsRoutes);
+app.use('/api/users', userRoutes);
 
 app.use((req, res, next) => {
     const error = new Error('Not found');

@@ -1,5 +1,10 @@
+<ngx-ui-loader
+fgsType= "cube-grid"
+fgsColor= "#ee6f57"
+fgsSize = "160"
+pbColor= "#ee6f57"
+></ngx-ui-loader>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
   <!-- Name Column -->
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef> Name </th>
@@ -15,11 +20,9 @@
       <span aria-hidden="true">&times;</span></button>
     </td>
   </ng-container>
-
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-
 <div class="center">
   <button class="btn" id="add-button" (click)="addProduct()">Add Product</button>
 </div>

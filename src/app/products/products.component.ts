@@ -5,6 +5,7 @@ import { ProductsService } from '../table-list/products.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormGroup } from '@angular/forms';
 import { DialogComponent } from './dialog/dialog.component';
+import {NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-products',
@@ -18,17 +19,20 @@ export class ProductsComponent implements OnInit, OnDestroy {
   products: Product[];
   dataSource: Product[];
 
-  constructor(public dialog: MatDialog, private productsService: ProductsService) {
+  constructor(public dialog: MatDialog, private productsService: ProductsService,
+    private ngxService: NgxUiLoaderService) {
     this.products = [];
   }
 
   ngOnInit(): void {
+    this.ngxService.start();
     this.productsService.getProducts();
     this.productsSub = this.productsService.getProductsUpdatedListener()
       .subscribe((products: Product[]) => {
         this.products = products;
         this.dataSource = this.products;
-      })
+      });
+    this.ngxService.stop();
   }
 
   addProduct() {

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { unique } = require('jquery');
 
 const tableSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,

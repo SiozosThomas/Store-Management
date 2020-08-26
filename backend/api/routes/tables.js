@@ -5,8 +5,9 @@ ObjectId = require('mongodb').ObjectID;
 
 const Table = require('../models/table');
 const Order = require('../models/order');
+const checkAuth = require('../middleware/check-auth');
 
-router.get('/', (req, res, next) => {
+router.get('/', checkAuth, (req, res, next) => {
     Table.find()
         .exec()
         .then(tables => {
@@ -23,7 +24,7 @@ router.get('/', (req, res, next) => {
         });
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', checkAuth, (req, res, next) => {
     const table = new Table({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
@@ -58,7 +59,7 @@ router.post('/', (req, res, next) => {
     })
 });
 
-router.post('/addOrder', (req, res, next) => {
+router.post('/addOrder', checkAuth, (req, res, next) => {
     const order = new Order({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
@@ -104,7 +105,7 @@ router.post('/addOrder', (req, res, next) => {
     });
 });
 
-router.delete('/:orderId/:tableId', (req, res, next) => {
+router.delete('/:orderId/:tableId', checkAuth, (req, res, next) => {
     Table.update(
         { _id: ObjectId(req.params.tableId) },
         { $pull : {orders : {_id: ObjectId(req.params.orderId)}}}
@@ -124,7 +125,7 @@ router.delete('/:orderId/:tableId', (req, res, next) => {
         });
 });
 
-router.delete('/:tableId', (req, res, next) => {
+router.delete('/:tableId', checkAuth, (req, res, next) => {
     Table.deleteOne({ _id: ObjectId(req.params.tableId)})
     .exec()
     .then(() => {

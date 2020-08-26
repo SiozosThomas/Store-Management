@@ -1,0 +1,29 @@
+<div class="container">
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input
+                type="text"
+                id="email"
+                formControlName="email"
+                class="form-control">
+            <span
+            *ngIf="!authForm.get('email').valid && authForm.get('email').touched"
+            class="help-block">
+            Please Enter an Email</span>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input
+                type="text"
+                name="password"
+                formControlName="password"
+                class="form-control">
+            <span
+            *ngIf="!authForm.get('password').valid && authForm.get('password').touched"
+            class="help-block">
+            Please Enter a Password</span>
+        </div>
+        <button class="btn" id="add-button" type="submit" [disabled]="!authForm.valid">Login</button>
+    </form>
+</div>

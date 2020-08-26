@@ -3,8 +3,9 @@ const mongoose = require('mongoose');
 const router = express.Router();
 
 const Product = require('../models/product');
+const checkAuth = require('../middleware/check-auth');
 
-router.get('/', (req, res, next) => {
+router.get('/', checkAuth, (req, res, next) => {
     Product.find()
     .exec()
     .then(menu => {
@@ -23,7 +24,7 @@ router.get('/', (req, res, next) => {
     });
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', checkAuth, (req, res, next) => {
     const product = new Product({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
@@ -44,7 +45,7 @@ router.post('/', (req, res, next) => {
     })
 });
 
-router.delete('/:productId', (req, res, next) => {
+router.delete('/:productId', checkAuth, (req, res, next) => {
     Product.deleteOne({ _id: ObjectId(req.params.productId)})
     .exec()
     .then(() => {

@@ -31,6 +31,6 @@ export class NewTableComponent implements OnInit {
       number: this.newTableForm.controls.number.value
     });
     this.tablesService.addTable(table);
-    this.router.navigate(['/']);
+    this.router.navigate(['/tables-list']);
   }
 }

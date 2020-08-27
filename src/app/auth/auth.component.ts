@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { Subscription } from 'rxjs';
@@ -13,12 +13,13 @@ import { Router } from '@angular/router';
 export class AuthComponent implements OnInit, OnDestroy {
 
   authForm: FormGroup;
-  private userSub: Subscription;
   user: User;
+  isAuth = true;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private elementRef: ElementRef) { }
 
   ngOnInit(): void {
+    this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#2d4059';
     this.authForm = new FormGroup({
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'password': new FormControl(null, [Validators.required])
@@ -29,14 +30,12 @@ export class AuthComponent implements OnInit, OnDestroy {
     console.log(this.authForm);
     //this.authService.signup(this.authForm.controls.email.value, this.authForm.controls.password.value);
     this.authService.login(this.authForm.controls.email.value, this.authForm.controls.password.value);
-    // this.userSub = this.authService.getUserUpdatedListener()
-    //   .subscribe(user => {
-    //     this.user = user;
-    //     this.router.navigate(['/']);
-    //   });
+    setTimeout(() => {
+      this.isAuth = this.authService.getIsAuthenticated();
+    }, 500);
   }
 
   ngOnDestroy(): void {
-    //this.userSub.unsubscribe();
+    this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = "white";
   }
 }

@@ -2,7 +2,31 @@ input.ng-invalid.ng-touched {
   border: 1px solid red;
 }
 
+.alert-danger {
+  background-color: #ea5455;
+}
+
+h4, p {
+  color: #e5e5e5;
+}
+
+label {
+  color: white;
+}
+
 #add-button {
-    background-color: #056676;
+    background-color: #e94560;
     color: white;
+}
+
+.container {
+  width: 20%;
+  height: 50%;
+  margin-top: 3rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .container {
+    width: 70%;
   }
+}

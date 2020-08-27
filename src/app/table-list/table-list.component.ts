@@ -7,6 +7,8 @@ import { TablesService } from './tables.service';
 import { Subscription } from 'rxjs';
 import { AddDialogComponent } from './dialog/add-dialog.component';
 import { Order } from './order.model';
+import { ToastrService } from 'ngx-toastr';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-table-list',
@@ -16,12 +18,17 @@ import { Order } from './order.model';
 export class TableListComponent implements OnInit, OnDestroy {
 
   private tablesSub: Subscription;
+  private createdTable: Subscription;
   tables: Table[];
+  sum: number[];
 
   constructor(private tablesService: TablesService,
       public dialog: MatDialog,
-      private ngxService: NgxUiLoaderService) {
+      private ngxService: NgxUiLoaderService, private toastr: ToastrService) {
     this.tables = [];
+    this.createdTable = this.tablesService.getTableEventsListener().subscribe(result => {
+      if (result) this.showToast(result);
+    });
   }
 
   ngOnInit(): void {
@@ -30,8 +37,25 @@ export class TableListComponent implements OnInit, OnDestroy {
     this.tablesSub = this.tablesService.getTableUpdatedListener()
       .subscribe((tables: Table[]) => {
         this.tables = tables;
+        this.clearSum();
+        this.setSum();
       });
     this.ngxService.stop();
+  }
+
+  clearSum() {
+    this.sum = [];
+  }
+
+  setSum() {
+    var sum;
+    for (let table of this.tables) {
+      sum = 0;
+      for (let order of table.orders) {
+        sum += order.price;
+      }
+      this.sum.push(sum);
+    }
   }
 
   addProduct(table: Table) {
@@ -72,7 +96,26 @@ export class TableListComponent implements OnInit, OnDestroy {
     this.tablesService.deleteTable(table);
   }
 
+  showToast(type: string) {
+    switch(type) {
+      case "Create":
+        this.toastr.success('Table created!', null, {
+          timeOut: 1000
+        }).onTap.pipe(take(1));
+        break;
+      case "Delete":
+        this.toastr.error('Table deleted!', null, {
+          timeOut: 1000
+        }).onTap.pipe(take(1));
+        break;
+      default:
+        console.log("Not valid event for tables");
+        break;
+    }
+  }
+
   ngOnDestroy(): void {
+    this.createdTable.unsubscribe();
     this.tablesSub.unsubscribe();
   }
 }

@@ -52,7 +52,7 @@ router.post('/', checkAuth, (req, res, next) => {
             });
         } else {
             res.status(500).json({
-                message: "Can't add table with same number",
+                message: "Same Number",
                 createdTable: null
             })
         }

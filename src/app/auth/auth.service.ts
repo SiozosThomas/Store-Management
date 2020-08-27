@@ -10,6 +10,7 @@ export class AuthService {
     private token: string;
     private authStatusListener = new Subject<boolean>();
     private isAuthenticated = false;
+    private tokenTimer: any;
     
     constructor(private http: HttpClient, private router: Router) {}
 
@@ -26,58 +27,82 @@ export class AuthService {
     }
 
     autoAuthUser() {
-        const inf = this.getAuthData();
-        if (inf) {
-            if (inf.token) {
-                this.token = inf.token;
+        if (this.checkLocalStorage()) {
+            this.token = localStorage.getItem('token');
+            const expiration = new Date(localStorage.getItem('expiration'));
+            const now = new Date();
+            const expiresIn = expiration.getTime() - now.getTime();
+            if (expiresIn > 0) {
                 this.isAuthenticated = true;
                 this.authStatusListener.next(true);
+                this.setAuthTimer(expiresIn / 1000);
                 this.router.navigate(['/tables-list']);
             }
         }
     }
 
-    signup(email: string, password: string) {
+    // signup(email: string, password: string) {
+    //     const user: User = ({
+    //         email,
+    //         password
+    //     });
+    //     this.http.post<{message: string}>("http://localhost:3000/api/users/signup", user)
+    //         .subscribe(resData => {
+    //             //this.userUpdated.next(user);
+    //         });
+    // }
+
+    login(email: string, password: string) {
         const user: User = ({
             email,
             password
         });
-        this.http.post<{message: string}>("http://localhost:3000/api/users/signup", user)
-            .subscribe(resData => {
-                //this.userUpdated.next(user);
-            });
-    }
-
-    login(email: string, password: string) {
-        const user: User = ({
-            email: email,
-            password: password
+        const request = this.http.post<{message: string, token: string, expiresIn: number}>("http://localhost:3000/api/users/login", user)
+        request.subscribe(resData => {
+            this.isAuthenticated = true;
+            this.token = resData.token;
+            const expiresInDuration = resData.expiresIn;
+            this.setAuthTimer(expiresInDuration);
+            const now = new Date();
+            const expDate = new Date(now.getTime() + expiresInDuration * 1000);
+            this.saveAuthData(this.token, expDate);
+            this.authStatusListener.next(true);
+            this.router.navigate(['/tables-list']);
+        }, () => {
+            this.isAuthenticated = false;
         });
-        this.http.post<{message: string, token: string}>("http://localhost:3000/api/users/login", user)
-            .subscribe(resData => {
-                this.token = resData.token;
-                this.isAuthenticated = true;
-                this.saveAuthData(this.token);
-                this.authStatusListener.next(true);
-                this.router.navigate(['/tables-list']);
-            });
     }
 
-    private saveAuthData(token: string) {
+    logout() {
+        this.token = null;
+        this.clearAuthData();
+        this.isAuthenticated = false;
+        clearTimeout(this.tokenTimer);
+        this.authStatusListener.next(false);
+        this.router.navigate(['/']);
+    }
+
+    private saveAuthData(token: string, expiration: Date) {
         localStorage.setItem('token', token);
+        localStorage.setItem('expiration', expiration.toISOString());
     }
 
     private clearAuthData() {
         localStorage.removeItem('token');
+        localStorage.removeItem('expiration');
     }
 
-    private getAuthData() {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            return;
+    private setAuthTimer(duration: number) {
+        console.log(duration);
+        this.tokenTimer = setTimeout(() => {
+          this.logout();
+        }, duration * 1000);
+      }
+
+    private checkLocalStorage() {
+        if (!localStorage.getItem('token')) {
+            return false;
         }
-        return {
-            token
-        };
+        return true;
     }
 }

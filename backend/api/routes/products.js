@@ -9,7 +9,6 @@ router.get('/', checkAuth, (req, res, next) => {
     Product.find()
     .exec()
     .then(menu => {
-        console.log(menu);
         res.status(201).json({
             message: "GET request at /api/menu",
             menu: menu

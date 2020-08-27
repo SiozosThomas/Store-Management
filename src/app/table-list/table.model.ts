@@ -5,5 +5,6 @@ export interface Table {
     name: string;
     number: number;
     orders?: Array<Order>;
+    sum?: number;
   }
   

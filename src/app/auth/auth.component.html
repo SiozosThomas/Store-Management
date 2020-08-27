@@ -1,5 +1,11 @@
 <div class="container">
     <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+        <div class="alert alert-danger" role="alert" style="margin-top: 1rem;" *ngIf="!isAuth">
+            <h4 class="alert-heading">Try Again!</h4>
+            <p>Wrong email or password.</p>
+            <hr>
+            <p class="mb-0">Please check your credentials.</p>
+        </div>
         <div class="form-group">
             <label for="email">Email</label>
             <input

@@ -17,12 +17,24 @@ body {
     width: 50%;
 }
 
+.close:hover {
+    border: 1px solid #ea5455;
+}
+
 #add-button {
     background-color: #056676;
     color: white;
 }
 
+#add-button:hover {
+    background-color: #0c7d8f;
+}
+
 #delete-button {
     background-color: #ea5455;
     color: white;
+}
+
+#delete-button:hover {
+    background-color: #f51b1c;
 }

@@ -24,6 +24,7 @@ import { AuthComponent } from './auth/auth.component';
 import { FooterComponent } from './footer/footer.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { AuthGuard } from './auth/auth.guard';
+import { ToastrModule } from 'ngx-toastr';
 
 const appRoutes: Routes = [
   { path: '', component: AuthComponent },
@@ -58,6 +59,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     NgxUiLoaderModule,
     MatTableModule,
+    ToastrModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, AuthGuard],

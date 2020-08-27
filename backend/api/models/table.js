@@ -10,7 +10,8 @@ const tableSchema = mongoose.Schema({
     orders: {
         type: Array,
         ref: 'Order'
-    }
+    },
+    sum: Number
 });
 
 module.exports = mongoose.model("Table", tableSchema);

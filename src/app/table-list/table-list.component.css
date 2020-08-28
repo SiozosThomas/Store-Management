@@ -12,9 +12,9 @@ body {
     height: 100%;
 }
 
-.center-class {
-    margin: auto;
-    width: 50%;
+.center {
+    margin-top: 1rem;
+    text-align: center;
 }
 
 .close:hover {

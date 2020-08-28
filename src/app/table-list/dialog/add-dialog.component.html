@@ -1,22 +1,37 @@
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+  </ng-container>
+
+  <!-- Price Column -->
+  <ng-container matColumnDef="price">
+    <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
+  </ng-container>
+
+  <!-- Check Column -->
+  <ng-container matColumnDef="_id">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-cell *matCellDef="let element; let i = index">
+      <input type="checkbox" [(ngModel)]="selectedProducts[i]">
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<mat-paginator [pageSizeOptions]="[10, 25, 50]"></mat-paginator>
+
 <div class="container">
   <div class="row">
-    <div id="products" class="col-lg-4" *ngFor="let product of products; let i=index">
-      <div>
-        <input type="checkbox" class="center-class"  [(ngModel)]="selectedProducts[i]">
-        <label style="margin-left: .2rem; margin-top: 2rem;">{{ product.name }} : {{ product.price }} €</label>
-      </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-12" style="margin-top: .5rem; text-align: center;">
+      <button type="button" class="btn" id="add-button" (click)="saveOrder()">Save</button>
     </div>
-  </div>
-</div>
-<div class="center-buttons">
-  <div class="center-buttons">
-    <div class="row">
-      <div class="col-lg-6 col-12" style="margin-top: .5rem;">
-        <button type="button" class="btn" id="add-button" (click)="saveOrder()">Save</button>
-      </div>
-      <div class="col-lg-6 col-12" style="margin-top: .5rem;">
-        <button type="button" class="btn" id="delete-button" (click)="cancel()">Cancel</button>
-      </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-12" style="margin-top: .5rem; text-align: center;">
+      <button type="button" class="btn" id="delete-button" (click)="cancel()">Cancel</button>
     </div>
   </div>
 </div>

@@ -1,10 +1,12 @@
-import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { TableListComponent } from '../table-list.component';
-
-import { ProductsService } from '../products.service';
-import { Product } from '../product.model';
+import { DeviceDetectorService } from 'ngx-device-detector';
+import {MatPaginator} from '@angular/material/paginator';
+import { ProductsService } from '../services/products.service';
+import { Product } from '../models/product.model';
 import { Subscription } from 'rxjs';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
     selector: 'app-add-dialog',
@@ -16,19 +18,32 @@ import { Subscription } from 'rxjs';
     products: Product[];
     selectedProducts: boolean[];
     private productsSub: Subscription;
+    displayedColumns: string[] = ['name', 'price', '_id'];
+    dataSource = new MatTableDataSource<Product>(this.products);
+    mobile = false;
+
+    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   
     constructor(private productsService: ProductsService,
-      public dialogRef: MatDialogRef<TableListComponent>,
+      public dialogRef: MatDialogRef<TableListComponent>, private deviceService: DeviceDetectorService,
       @Inject(MAT_DIALOG_DATA) public data: {products: Product[]}) {
         this.products = [];
         this.selectedProducts = [];
     }
 
     ngOnInit(): void {
+      if (this.deviceService.isMobile()) {
+        this.mobile = true;
+        this.dialogRef.updateSize("100%", "80%");
+      } else {
+        this.mobile = false;
+      }
       this.productsService.getProducts();
       this.productsSub = this.productsService.getProductsUpdatedListener()
         .subscribe((products: Product[]) => {
           this.products = products;
+          this.dataSource = new MatTableDataSource<Product>(this.products);
+          this.dataSource.paginator = this.paginator;
           if (this.selectedProducts.length === 0) this.createSelectedProducts();
       });
     }

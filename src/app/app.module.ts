@@ -1,17 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {CardModule} from 'primeng/card';
-import {ButtonModule} from 'primeng/button';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatCheckboxModule} from '@angular/material/checkbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
-import { NgxUiLoaderModule } from 'ngx-ui-loader';
-import {MatTableModule} from '@angular/material/table';
-
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { TableListComponent } from './table-list/table-list.component';
@@ -25,13 +16,8 @@ import { FooterComponent } from './footer/footer.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { AuthGuard } from './auth/auth.guard';
 import { ToastrModule } from 'ngx-toastr';
-
-const appRoutes: Routes = [
-  { path: '', component: AuthComponent },
-  { path: 'tables-list', component: TableListComponent, canActivate: [AuthGuard]},
-  { path: 'newTable', component: NewTableComponent, canActivate: [AuthGuard]},
-  { path: 'products', component: ProductsComponent, canActivate: [AuthGuard]}
-];
+import { AppMaterialModule } from './app-material.module';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -47,20 +33,14 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     CardModule,
-    ButtonModule,
     HttpClientModule,
-    MatDialogModule,
     NoopAnimationsModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatCheckboxModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxUiLoaderModule,
-    MatTableModule,
-    ToastrModule.forRoot(),
-    RouterModule.forRoot(appRoutes)
+    AppMaterialModule,
+    ToastrModule.forRoot()
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, AuthGuard],
   bootstrap: [AppComponent]

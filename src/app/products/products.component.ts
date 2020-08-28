@@ -1,11 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Product } from '../table-list/product.model';
-import { ProductsService } from '../table-list/products.service';
+import { Product } from '../table-list/models/product.model';
+import { ProductsService } from '../table-list/services/products.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormGroup } from '@angular/forms';
 import { DialogComponent } from './dialog/dialog.component';
 import {NgxUiLoaderService } from 'ngx-ui-loader';
+import {MatTableDataSource} from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-products',
@@ -15,9 +17,11 @@ import {NgxUiLoaderService } from 'ngx-ui-loader';
 export class ProductsComponent implements OnInit, OnDestroy {
 
   private productsSub: Subscription;
-  displayedColumns: string[] = ['name', 'price'];
+  displayedColumns: string[] = ['name', 'price', "_id"];
   products: Product[];
-  dataSource: Product[];
+  dataSource = new MatTableDataSource<Product>(this.products);
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(public dialog: MatDialog, private productsService: ProductsService,
     private ngxService: NgxUiLoaderService) {
@@ -30,7 +34,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.productsSub = this.productsService.getProductsUpdatedListener()
       .subscribe((products: Product[]) => {
         this.products = products;
-        this.dataSource = this.products;
+        this.dataSource = new MatTableDataSource<Product>(this.products);
+        this.dataSource.paginator = this.paginator;
       });
     this.ngxService.stop();
   }

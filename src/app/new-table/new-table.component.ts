@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { TablesService } from '../table-list/tables.service';
-import { Table } from '../table-list/table.model';
+import { TablesService } from '../table-list/services/tables.service';
+import { Table } from '../table-list/models/table.model';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 

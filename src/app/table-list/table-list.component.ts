@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Table } from './table.model';
+import { Table } from './models/table.model';
 import {MatDialog} from '@angular/material/dialog';
 import {NgxUiLoaderService } from 'ngx-ui-loader';
 
-import { TablesService } from './tables.service';
+import { TablesService } from './services/tables.service';
 import { Subscription } from 'rxjs';
 import { AddDialogComponent } from './dialog/add-dialog.component';
-import { Order } from './order.model';
+import { Order } from './models/order.model';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
 
@@ -60,8 +60,7 @@ export class TableListComponent implements OnInit, OnDestroy {
 
   addProduct(table: Table) {
     const dialogRef = this.dialog.open(AddDialogComponent, {
-      disableClose: true,
-      width: '60%',
+      width: '50%',
       height: '60%',
       data: {products: []}
     });

@@ -1,8 +1,11 @@
 import { Injectable } from "@angular/core";
-import { Table } from "./table.model";
+import { Table } from "../models/table.model";
 import { HttpClient } from '@angular/common/http';
 import { Subject } from "rxjs";
-import { Order } from './order.model';
+import { Order } from '../models/order.model';
+import { environment } from '../../../environments/environment';
+
+const BACKEND_URL = environment.apiUrl + "/tables";
 
 @Injectable({ providedIn: 'root' })
 export class TablesService {
@@ -27,7 +30,7 @@ export class TablesService {
   }
 
   getTables() {
-      this.http.get<{message: string, tables: Table[]}>("http://localhost:3000/api/tables")
+      this.http.get<{message: string, tables: Table[]}>(BACKEND_URL)
       .subscribe((data) => {
         this.tables = data.tables;
         this.tablesUpdated.next([...this.tables]);
@@ -35,13 +38,13 @@ export class TablesService {
   }
 
   addTable(table: Table) {
-      this.http.post<{message: string, table: Table}>("http://localhost:3000/api/tables", table)
+      this.http.post<{message: string, table: Table}>(BACKEND_URL, table)
         .subscribe(resData => {
           console.log(resData.message);
           console.log("Created table: ");
           console.log(table);
-          this.getTables();
           this.tableEvents.next("Create");
+          this.getTables();
           this.error.next("ok");
           this.tablesUpdated.next([...this.tables]);
       }, error => {
@@ -52,7 +55,7 @@ export class TablesService {
   }
 
   addProduct(order: Order) {
-    const request = this.http.post<{message: string, order: Order}>("http://localhost:3000/api/tables/addOrder", order);
+    const request = this.http.post<{message: string, order: Order}>(BACKEND_URL + "/addOrder", order);
     request
         .subscribe(resData => {
           console.log(resData.message);
@@ -64,7 +67,7 @@ export class TablesService {
   }
 
   deleteOrder(order: Order, tableIndex: number, orderIndex: number, table: Table) {
-    this.http.delete<{message: string}>("http://localhost:3000/api/tables/" + order._id + "/" + table._id)
+    this.http.delete<{message: string}>(BACKEND_URL + "/" + order._id + "/" + table._id)
         .subscribe(() => {
           this.tables[tableIndex].orders.splice(orderIndex, 1);
           this.tablesUpdated.next([...this.tables]);
@@ -72,7 +75,7 @@ export class TablesService {
   }
 
   deleteTable(table: Table) {
-    this.http.delete<{message: string}>("http://localhost:3000/api/tables/" + table._id)
+    this.http.delete<{message: string}>(BACKEND_URL + "/" + table._id)
       .subscribe(res => {
         console.log(res.message);
         this.getTables();

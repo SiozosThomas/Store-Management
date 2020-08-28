@@ -24,3 +24,9 @@
     background-color: #ea5455;
     color: white;
 }
+
+@media only screen and (max-width: 600px) {
+    body {
+      width: 70%;
+    }
+  }

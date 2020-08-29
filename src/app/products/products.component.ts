@@ -66,6 +66,14 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.productsService.deleteProduct(element._id);
   }
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
   ngOnDestroy() {
     this.productsSub.unsubscribe();
   }

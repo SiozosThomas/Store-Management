@@ -14,7 +14,8 @@ pbColor= "#ee6f57"
                   <h5 class="card-title">Number: {{ table.number }}</h5>
                   <p class="card-text">List with items:</p>
                     <ul class="list-group margin_button">
-                      <li class="list-group-item" *ngFor="let order of table.orders; let j = index;">
+                      <li class="list-group-item" *ngFor="let order of table.orders; let j = index;"
+                        (click)="onClick($event, order, i)">
                         {{ order.name }} : {{ order.price }} €
                         <button type="button" class="close" aria-label="Close" style="color: red;"
                           (click)="deleteOrder(order, i, j, table)">
@@ -23,9 +24,17 @@ pbColor= "#ee6f57"
                       </li>
                     </ul>
                 </div>
+                <div *ngIf="selectedSum[i] > 0"
+                  style="text-align: center;">
+                  <hr>
+                <label>
+                  <b>Sum of Selected Items: <br> {{ selectedSum[i].toFixed(2) }} €</b>
+                </label>
+                <hr>
+                </div>
                 <hr>
                 <label class="center-class" style="text-align: center;">
-                  <b>Sum: {{ sum[i] }}</b>
+                  <b>Sum: {{ sum[i] }} €</b>
                 </label>
                 <hr>
                 <button mat-raised-button class="btn center-class" id="add-button" (click)="addProduct(table)">Add Product</button>

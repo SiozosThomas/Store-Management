@@ -5,6 +5,11 @@ fgsSize = "160"
 pbColor= "#ee6f57"
 ></ngx-ui-loader>
 
+<mat-form-field style="margin-left: 2rem;">
+  <mat-label>Search</mat-label>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="">
+  <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>
 <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
   <!-- Name Column -->
@@ -21,7 +26,7 @@ pbColor= "#ee6f57"
 
   <!-- Check Column -->
   <ng-container matColumnDef="_id">
-    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
     <mat-cell *matCellDef="let element;">
       <button type="button" class="close" aria-label="Close" style="color: red;"
       (click)="deleteProduct(element)">

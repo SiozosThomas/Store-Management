@@ -26,7 +26,10 @@
 }
 
 @media only screen and (max-width: 600px) {
-    body {
-      width: 70%;
+    .space {
+        margin-left: 10%;
+    }
+    .break {
+        word-break: break-all;
     }
   }

@@ -21,6 +21,7 @@ export class TableListComponent implements OnInit, OnDestroy {
   private createdTable: Subscription;
   tables: Table[];
   sum: number[];
+  selectedSum: number[];
 
   constructor(private tablesService: TablesService,
       public dialog: MatDialog,
@@ -43,18 +44,30 @@ export class TableListComponent implements OnInit, OnDestroy {
     this.ngxService.stop();
   }
 
+  onClick(event: any, order: Order, index: number) {
+    if (event.target.style.backgroundColor === "rgb(178, 235, 242)") {
+      event.target.style.backgroundColor = "white";
+      this.selectedSum[index] -= order.price;
+    } else {
+      event.target.style.backgroundColor = "#b2ebf2";
+      this.selectedSum[index] += order.price;
+    }
+  }
+
   clearSum() {
     this.sum = [];
+    this.selectedSum = [];
   }
 
   setSum() {
-    var sum;
+    var sum: any;
     for (let table of this.tables) {
       sum = 0;
       for (let order of table.orders) {
         sum += order.price;
       }
-      this.sum.push(sum);
+      this.sum.push(sum.toFixed(2));
+      this.selectedSum.push(0);
     }
   }
 

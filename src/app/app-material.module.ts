@@ -5,7 +5,10 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
-import {MatPaginatorModule} from '@angular/material/paginator'; 
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
     imports: [
@@ -15,7 +18,10 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         MatCheckboxModule,
         MatTableModule,
         NgxUiLoaderModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule
     ],
     exports: [
         MatDialogModule,
@@ -24,7 +30,10 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         MatCheckboxModule,
         MatTableModule,
         NgxUiLoaderModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule
     ]
 })
 export class AppMaterialModule {}

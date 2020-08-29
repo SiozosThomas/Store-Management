@@ -14,6 +14,10 @@ label {
   color: white;
 }
 
+span {
+  color: white;
+}
+
 #add-button {
     background-color: #e94560;
     color: white;

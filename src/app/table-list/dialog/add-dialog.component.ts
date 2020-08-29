@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { TableListComponent } from '../table-list.component';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import {MatPaginator} from '@angular/material/paginator';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import { ProductsService } from '../services/products.service';
 import { Product } from '../models/product.model';
 import { Subscription } from 'rxjs';
@@ -21,6 +21,7 @@ import {MatTableDataSource} from '@angular/material/table';
     displayedColumns: string[] = ['name', 'price', '_id'];
     dataSource = new MatTableDataSource<Product>(this.products);
     mobile = false;
+    pageEvent: PageEvent;
 
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   
@@ -34,6 +35,8 @@ import {MatTableDataSource} from '@angular/material/table';
     ngOnInit(): void {
       if (this.deviceService.isMobile()) {
         this.mobile = true;
+        console.log("aaa");
+        this.dialogRef.disableClose = true;
         this.dialogRef.updateSize("100%", "80%");
       } else {
         this.mobile = false;
@@ -54,6 +57,11 @@ import {MatTableDataSource} from '@angular/material/table';
       }
     }
 
+    onChange(product: Product) {
+      const selectedProduct = this.products.findIndex((element) => element === product);  
+      this.selectedProducts[selectedProduct] = !this.selectedProducts[selectedProduct];
+    }
+
     saveOrder() {
       this.data.products = this.findSelectedProducts();
       this.dialogRef.close({products: this.data.products});
@@ -69,6 +77,14 @@ import {MatTableDataSource} from '@angular/material/table';
 
     cancel() {
       this.dialogRef.close({products: this.data.products});
+    }
+
+    applyFilter(filterValue: string) {
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+  
+      if (this.dataSource.paginator) {
+        this.dataSource.paginator.firstPage();
+      }
     }
 
     ngOnDestroy() {

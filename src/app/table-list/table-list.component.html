@@ -8,9 +8,10 @@ pbColor= "#ee6f57"
     <div class="row" *ngIf="tables.length > 0">
         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12" *ngFor="let table of tables; let i = index; trackBy: trackById">
             <div class="card" style="width: 18rem; margin-bottom: 2rem;">
-                <!-- <img src="../../assets/primeng-logo.png" class="card-img-top" alt="Card"> -->
                 <div class="card-body">
-                  <h5 class="card-title">Name: {{ table.name }}</h5>
+                  <h5 class="card-title">Name: {{ table.name }}
+                    <!-- <i class="fas fa-edit" id="icon" (click)="updateTable(table)"></i> -->
+                  </h5>
                   <h5 class="card-title">Number: {{ table.number }}</h5>
                   <p class="card-text">List with items:</p>
                     <ul class="list-group margin_button">
@@ -18,7 +19,7 @@ pbColor= "#ee6f57"
                         (click)="onClick($event, order, i)">
                         {{ order.name }} : {{ order.price }} €
                         <button type="button" class="close" aria-label="Close" style="color: red;"
-                          (click)="deleteOrder(order, i, j, table)">
+                          (click)="deleteOrder(order, i, j, table, $event)">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </li>
@@ -37,8 +38,14 @@ pbColor= "#ee6f57"
                   <b>Sum: {{ sum[i] }} €</b>
                 </label>
                 <hr>
-                <button mat-raised-button class="btn center-class" id="add-button" (click)="addProduct(table)">Add Product</button>
-                <button mat-raised-button class="btn center-class" id="delete-button" style="margin-top: .5rem;" (click)="deleteTable(table)">Delete Table</button>
+                <button mat-raised-button class="btn center-class" id="add-button" (click)="addProduct(table)">
+                  <i class="fas fa-plus"></i>
+                  Add Product
+                </button>
+                <button mat-raised-button class="btn center-class" id="delete-button" style="margin-top: .5rem;" (click)="deleteTable(table)">
+                  <i class="fas fa-trash-alt"></i>
+                  Delete Table
+                </button>
               </div>
         </div>
     </div>

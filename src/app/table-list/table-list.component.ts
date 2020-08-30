@@ -27,6 +27,7 @@ export class TableListComponent implements OnInit, OnDestroy {
       public dialog: MatDialog,
       private ngxService: NgxUiLoaderService, private toastr: ToastrService) {
     this.tables = [];
+    this.selectedSum = [];
     this.createdTable = this.tablesService.getTableEventsListener().subscribe(result => {
       if (result) this.showToast(result);
     });
@@ -56,7 +57,7 @@ export class TableListComponent implements OnInit, OnDestroy {
 
   clearSum() {
     this.sum = [];
-    this.selectedSum = [];
+    //this.selectedSum = [];
   }
 
   setSum() {
@@ -100,7 +101,11 @@ export class TableListComponent implements OnInit, OnDestroy {
     return table._id;
   }
 
-  deleteOrder(order: Order, tableIndex: number, orderIndex: number, table: Table) {
+  deleteOrder(order: Order, tableIndex: number, orderIndex: number, table: Table, event: any) {
+    event.stopPropagation();
+    if (event.path[2].style.backgroundColor === "rgb(178, 235, 242)") {
+      this.selectedSum[tableIndex] -= order.price;
+    }
     this.tablesService.deleteOrder(order, tableIndex, orderIndex, table);
   }
 

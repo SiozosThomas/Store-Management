@@ -1,6 +1,7 @@
 body {
     background-color: #ea5455;
 }
+
 .margin_button {
     margin-bottom: 1rem;
 }
@@ -15,6 +16,15 @@ body {
 .center {
     margin-top: 1rem;
     text-align: center;
+}
+
+#icon {
+    margin-left: 20%;
+    color: #07689f;
+}
+
+#icon:hover {
+    border: 1px solid #07689f;
 }
 
 .close:hover {

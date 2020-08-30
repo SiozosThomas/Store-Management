@@ -1,9 +1,9 @@
 <div class="container">
     <div class="alert alert-danger" role="alert" style="margin-top: 1rem;" *ngIf="sameNumberError">
         <h4 class="alert-heading">Try Again!</h4>
-        <p>Wrong email or password.</p>
+        <p>Table with this number already exists.</p>
         <hr>
-        <p class="mb-0">Please check your credentials.</p>
+        <p class="mb-0">Please change your Table Number</p>
     </div>
     <form [formGroup]="newTableForm" (ngSubmit)="onSubmit()">
         <div class="form-group">

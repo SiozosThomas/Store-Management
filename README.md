@@ -27,32 +27,46 @@ such as CRUD tables, CRD products on menu and manage products on each table.
   - Third Step, allow Network Access to your IP or 0.0.0.0/0 (anyone).
   - Fourth Step, connect your app with your database.
   - You are ready!
+
+## Develop
+
 - ng serve for Angular, running at localhost:4200
 - npm run start:server for API, running at localhost:3000
 - Open your browser at localhost:4200
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `ng build` to build the project. The build artifacts will be stored in the `app-production/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+## Examples
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Login
 
-## Running end-to-end tests
+![Login](https://github.com/SiozosThomas/Store-Management/blob/master/examples/login.png)
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+### Add Table
 
-## Further help
+![Add_Table](https://github.com/SiozosThomas/Store-Management/blob/master/examples/add_table.png)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### Products
+
+![Products](https://github.com/SiozosThomas/Store-Management/blob/master/examples/products.png)
+
+### Add Product on Table
+
+![Add_Product](https://github.com/SiozosThomas/Store-Management/blob/master/examples/add_product.png)
+
+### Update Table
+
+![Update_Table](https://github.com/SiozosThomas/Store-Management/blob/master/examples/update_table.png)
+
+### View Tables
+
+![View_Tables](https://github.com/SiozosThomas/Store-Management/blob/master/examples/table-list.png)
+
+### Selected Sum
+
+![Selected_Sum](https://github.com/SiozosThomas/Store-Management/blob/master/examples/selected.png)
+
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.

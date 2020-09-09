@@ -1,5 +1,36 @@
 # StoreManagement
 
+This is a store management app that provides the main functions you'd expect from a store management app,
+such as CRUD tables, CRD products on menu and manage products on each table.
+
+## Features
+
+* Create Table.
+* View Tables.
+* Update Table.
+* Delete Table.
+* Add Product.
+* View Products.
+* Delete Product.
+* Add Product to Table.
+* Delete Product from Table.
+* Login/Logout.
+* Sum of selected products on each table.
+
+## Setup
+
+* Clone this repo to your desktop
+* npm install
+* Change on backend/app.js the connection of mongoose.
+  ** First Step, you'll need an account on MongoDB Atlas.
+  ** Second Step, create a new Cluster (Free).
+  ** Third Step, allow Network Access to your IP or 0.0.0.0/0 (anyone).
+  ** Fourth Step, connect your app with your database.
+  ** You are ready!
+* ng serve for Angular, running at localhost:4200
+* npm run start:server for API, running at localhost:3000
+* Open your browser at localhost:4200
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
 
 ## Development server

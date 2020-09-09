@@ -32,8 +32,8 @@ such as CRUD tables, CRD products on menu and manage products on each table.
 
 ## :computer: Develop
 
-- 'ng serve' for Angular, running at localhost:4200
-- 'npm run start:server' for API, running at localhost:3000
+- Run 'ng serve' for Angular, running at localhost:4200
+- Run 'npm run start:server' for API, running at localhost:3000
 - Open your browser at localhost:4200
 
 ## :wrench: Build

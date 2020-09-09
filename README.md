@@ -3,6 +3,8 @@
 This is a store management app that provides the main functions you'd expect from a store management app,
 such as CRUD tables, CRD products on menu and manage products on each table.
 
+![View_Tables](https://github.com/SiozosThomas/Store-Management/blob/master/examples/table-list.png)
+
 ## Features
 
 * Create Table.
@@ -30,8 +32,8 @@ such as CRUD tables, CRD products on menu and manage products on each table.
 
 ## Develop
 
-- ng serve for Angular, running at localhost:4200
-- npm run start:server for API, running at localhost:3000
+- 'ng serve' for Angular, running at localhost:4200
+- 'npm run start:server' for API, running at localhost:3000
 - Open your browser at localhost:4200
 
 ## Build
@@ -68,5 +70,11 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ![Selected_Sum](https://github.com/SiozosThomas/Store-Management/blob/master/examples/selected.png)
 
+## Author
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
+Siozos Thomas
+
+## License
+
+You can check out the full lecense [here](https://github.com/SiozosThomas/Store-Management/blob/master/LICENSE)
+This project is lecensed under the terms of the **MIT** license.

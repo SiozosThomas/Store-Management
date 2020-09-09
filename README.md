@@ -5,7 +5,7 @@ such as CRUD tables, CRD products on menu and manage products on each table.
 
 ![View_Tables](https://github.com/SiozosThomas/Store-Management/blob/master/examples/table-list.png)
 
-## Features
+## :scroll: Features
 
 * Create Table.
 * View Tables.
@@ -30,13 +30,13 @@ such as CRUD tables, CRD products on menu and manage products on each table.
   - Fourth Step, connect your app with your database.
   - You are ready!
 
-## Develop
+## :computer: Develop
 
 - 'ng serve' for Angular, running at localhost:4200
 - 'npm run start:server' for API, running at localhost:3000
 - Open your browser at localhost:4200
 
-## Build
+## :wrench: Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `app-production/` directory. Use the `--prod` flag for a production build.
 
@@ -70,11 +70,11 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ![Selected_Sum](https://github.com/SiozosThomas/Store-Management/blob/master/examples/selected.png)
 
-## Author
+## :pencil2: Author
 
 Siozos Thomas
 
-## License
+## :key: License
 
 You can check out the full lecense [here](https://github.com/SiozosThomas/Store-Management/blob/master/LICENSE)
 This project is lecensed under the terms of the **MIT** license.

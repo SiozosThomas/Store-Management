@@ -54,6 +54,19 @@ export class TablesService {
       });
   }
 
+  updateTable(table: Table, numberUpdated: boolean) {
+    this.http.patch<{message: string, table: Table}>(BACKEND_URL + "/" + table._id + "/" + numberUpdated, table)
+      .subscribe(resData => {
+        console.log(resData.message);
+        this.getTables();
+        this.tablesUpdated.next([...this.tables]);
+    }, error => {
+      if (error.error.message === "Same Number") {
+        this.tableEvents.next("SameNumber");
+      }
+    });
+}
+
   addProduct(order: Order) {
     const request = this.http.post<{message: string, order: Order}>(BACKEND_URL + "/addOrder", order);
     request

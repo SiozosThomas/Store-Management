@@ -2,13 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Table } from './models/table.model';
 import {MatDialog} from '@angular/material/dialog';
 import {NgxUiLoaderService } from 'ngx-ui-loader';
-
 import { TablesService } from './services/tables.service';
 import { Subscription } from 'rxjs';
 import { AddDialogComponent } from './dialog/add-dialog.component';
 import { Order } from './models/order.model';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-table-list',
@@ -18,17 +18,21 @@ import { take } from 'rxjs/operators';
 export class TableListComponent implements OnInit, OnDestroy {
 
   private tablesSub: Subscription;
-  private createdTable: Subscription;
+  private tablesEventsSub: Subscription;
   tables: Table[];
   sum: number[];
   selectedSum: number[];
+  panelOpenState: boolean[];
+  editTable: FormGroup;
+  sameNumberError = false;
 
   constructor(private tablesService: TablesService,
       public dialog: MatDialog,
       private ngxService: NgxUiLoaderService, private toastr: ToastrService) {
     this.tables = [];
+    this.panelOpenState = [];
     this.selectedSum = [];
-    this.createdTable = this.tablesService.getTableEventsListener().subscribe(result => {
+    this.tablesEventsSub = this.tablesService.getTableEventsListener().subscribe(result => {
       if (result) this.showToast(result);
     });
   }
@@ -41,11 +45,17 @@ export class TableListComponent implements OnInit, OnDestroy {
         this.tables = tables;
         this.clearSum();
         this.setSum();
+        this.setEmptyArrays();
       });
     this.ngxService.stop();
+    this.editTable = new FormGroup({
+      'name': new FormControl(null),
+      'number': new FormControl(null, [Validators.min(0)])
+    });
+    this.sameNumberError = false;
   }
 
-  onClick(event: any, order: Order, index: number) {
+  onClickOrder(event: any, order: Order, index: number) {
     if (event.target.style.backgroundColor === "rgb(178, 235, 242)") {
       event.target.style.backgroundColor = "white";
       this.selectedSum[index] -= order.price;
@@ -60,6 +70,13 @@ export class TableListComponent implements OnInit, OnDestroy {
     //this.selectedSum = [];
   }
 
+  setEmptyArrays() {
+    for (let table of this.tables) {
+      this.panelOpenState.push(false);
+      this.selectedSum.push(0);
+    }
+  }
+
   setSum() {
     var sum: any;
     for (let table of this.tables) {
@@ -68,7 +85,6 @@ export class TableListComponent implements OnInit, OnDestroy {
         sum += order.price;
       }
       this.sum.push(sum.toFixed(2));
-      this.selectedSum.push(0);
     }
   }
 
@@ -125,14 +141,37 @@ export class TableListComponent implements OnInit, OnDestroy {
           timeOut: 1000
         }).onTap.pipe(take(1));
         break;
+      case "SameNumber":
+        this.toastr.error('Can\'t create table with same number', null, {
+          timeOut: 1000
+        }).onTap.pipe(take(1));
+        break;
       default:
         console.log("Not valid event for tables");
         break;
     }
   }
 
+  saveEdit(tableSelected: Table, index: number): void {
+    var numberUpdated = false;
+    if (this.editTable.controls.number.value) {
+      numberUpdated = true;
+    }
+    if (this.editTable.controls.name.value || this.editTable.controls.number.value) {
+      const table: Table = ({
+        _id: tableSelected._id,
+        name: (this.editTable.controls.name.value) ? this.editTable.controls.name.value :
+                tableSelected.name,
+        number: (this.editTable.controls.number.value) ? this.editTable.controls.number.value :
+                tableSelected.number
+      });
+      this.tablesService.updateTable(table, numberUpdated);
+      this.panelOpenState[index] = false; 
+    }
+  }
+
   ngOnDestroy(): void {
-    this.createdTable.unsubscribe();
+    this.tablesEventsSub.unsubscribe();
     this.tablesSub.unsubscribe();
   }
 }

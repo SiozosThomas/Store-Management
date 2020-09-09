@@ -35,7 +35,6 @@ import {MatTableDataSource} from '@angular/material/table';
     ngOnInit(): void {
       if (this.deviceService.isMobile()) {
         this.mobile = true;
-        console.log("aaa");
         this.dialogRef.disableClose = true;
         this.dialogRef.updateSize("100%", "80%");
       } else {

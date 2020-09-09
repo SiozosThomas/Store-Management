@@ -55,6 +55,54 @@ exports.createTable = (req, res, next) => {
     })
 };
 
+exports.updateTable = (req, res, next) => {
+    const id = req.params.tableId;
+    const updateOps = {};
+    for(var key in req.body) {
+        updateOps[key] = req.body[key];
+    }
+    if (req.params.numberUpdated === "true") {
+        Table.findOne({
+            number: req.body.number
+        })
+        .exec()
+        .then(resTable => {
+            if (!resTable) {
+                Table.update({_id: id}, { $set: updateOps})
+                .exec()
+                .then(() => {
+                    res.status(200).json({
+                        message: 'Table Updated'
+                    });
+                })
+                .catch(err => {
+                    res.status(500).json({
+                        error: err
+                    });
+                });
+            } else {
+                res.status(500).json({
+                    message: "Same Number"
+                })
+            }
+        });
+    } else {
+        Table.update({_id: id}, { $set: updateOps})
+        .exec()
+        .then(() => {
+            res.status(200).json({
+                message: 'Table Updated'
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+    }
+};
+
 exports.addOrder = (req, res, next) => {
     const order = new Order({
         _id: new mongoose.Types.ObjectId(),

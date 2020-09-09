@@ -12,15 +12,54 @@ pbColor= "#ee6f57"
                   <h5 class="card-title">Name: {{ table.name }}
                     <!-- <i class="fas fa-edit" id="icon" (click)="updateTable(table)"></i> -->
                   </h5>
-                  <h5 class="card-title">Number: {{ table.number }}</h5>
+                  <h5 class="card-title">Number: {{ table.number }}
+                    <i class="fas fa-caret-down" id="editButton" (click)="this.panelOpenState[i] = !this.panelOpenState[i]"></i>
+                    <div class="container" *ngIf="panelOpenState[i]" id="editMenu">
+                      <form [formGroup]="editTable" (ngSubmit)="saveEdit(table, i)">
+                          <div class="form-group">
+                              <h6>Table Name</h6>
+                              <input
+                                  type="text"
+                                  id="name"
+                                  formControlName="name"
+                                  class="form-control"
+                                  placeholder="{{ table.name }}">
+                          </div>
+                          <div class="form-group">
+                              <h6>Table Number</h6>
+                              <input
+                                  type="number"
+                                  name="number"
+                                  formControlName="number"
+                                  class="form-control"
+                                  placeholder="{{ table.number }}">
+                              <h6
+                              *ngIf="!editTable.get('number').valid && editTable.get('number').touched"
+                              class="help-block">
+                              Please Enter a Table Number</h6>
+                          </div>
+                          <mat-grid-list cols="2" rowHeight="2:1">
+                            <mat-grid-tile>
+                              <button class="btn" id="add-button" type="submit" [disabled]="!editTable.valid">Save</button>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                              <button class="btn" id="delete-button" type="button"
+                              (click)="this.panelOpenState[i] = !this.panelOpenState[i]">
+                                Cancel
+                              </button>
+                            </mat-grid-tile>
+                          </mat-grid-list>
+                      </form>
+                    </div>
+                  </h5>
                   <p class="card-text">List with items:</p>
                     <ul class="list-group margin_button">
                       <li class="list-group-item" *ngFor="let order of table.orders; let j = index;"
-                        (click)="onClick($event, order, i)">
+                        (click)="onClickOrder($event, order, i)">
                         {{ order.name }} : {{ order.price }} €
                         <button type="button" class="close" aria-label="Close" style="color: red;"
-                          (click)="deleteOrder(order, i, j, table, $event)">
-                          <span aria-hidden="true">&times;</span>
+                        (click)="deleteOrder(order, i, j, table, $event)">
+                        <span aria-hidden="true">&times;</span>
                         </button>
                       </li>
                     </ul>

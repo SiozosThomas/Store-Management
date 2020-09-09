@@ -9,6 +9,8 @@ router.post('/', checkAuth, TableController.createTable);
 
 router.post('/addOrder', checkAuth, TableController.addOrder);
 
+router.patch('/:tableId/:numberUpdated', checkAuth, TableController.updateTable);
+
 router.delete('/:orderId/:tableId', checkAuth, TableController.deleteOrder);
 
 router.delete('/:tableId', checkAuth, TableController.deleteTable);

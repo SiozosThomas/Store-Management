@@ -48,3 +48,24 @@ body {
 #delete-button:hover {
     background-color: #f51b1c;
 }
+
+#editButton {
+    margin-left: 50%;
+}
+
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+
+.alert-danger {
+    background-color: #ea5455;
+}
+
+.alert-letters {
+  color: #e5e5e5;
+}
+
+#editMenu {
+    box-shadow: -6px -8px 8px -9px #00334e;
+    margin-top: 1rem;
+}

@@ -23,6 +23,7 @@ such as CRUD tables, CRD products on menu and manage products on each table.
 * Sum of selected products on each table.
 
 ## Setup
+![Custom badge](https://img.shields.io/endpoint?color=%23CB3837&logo=NPM&style=plastic&url=https%3A%2F%2Ff54vff4z3g0b.runkit.sh%2F)
 
 - Clone this repo to your desktop
 - npm install

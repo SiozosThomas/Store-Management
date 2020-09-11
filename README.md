@@ -1,7 +1,4 @@
 # StoreManagement
-![Custom badge](https://img.shields.io/endpoint?logo=Node.js&logoColor=white&style=plastic&url=https%3A%2F%2F653xvogemnbs.runkit.sh%2F)
-![Custom badge](https://img.shields.io/endpoint?logo=Angular&style=plastic&url=https%3A%2F%2F653xvogemnbs.runkit.sh%2F)
-![Custom badge](https://img.shields.io/endpoint?logo=TypeScript&url=https%3A%2F%2F653xvogemnbs.runkit.sh%2F)
 
 This is a store management app that provides the main functions you'd expect from a store management app,
 such as CRUD tables, CRD products on menu and manage products on each table.

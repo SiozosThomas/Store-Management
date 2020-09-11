@@ -1,6 +1,6 @@
 # StoreManagement
 ![Custom badge](https://img.shields.io/endpoint?logo=Node.js&logoColor=white&style=plastic&url=https%3A%2F%2F653xvogemnbs.runkit.sh%2F)
-![Custom badge](https://img.shields.io/endpoint?label=Angular&logo=Angular&style=plastic&url=https%3A%2F%2Ff54vff4z3g0b.runkit.sh%2F)
+![Custom badge](![Custom badge](https://img.shields.io/endpoint?logo=Angular&style=plastic&url=https%3A%2F%2F653xvogemnbs.runkit.sh%2F))
 ![Custom badge](https://img.shields.io/endpoint?logo=TypeScript&style=plastic&url=https%3A%2F%2F653xvogemnbs.runkit.sh%2F)
 
 This is a store management app that provides the main functions you'd expect from a store management app,

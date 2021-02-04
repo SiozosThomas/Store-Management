@@ -16,7 +16,8 @@ such as CRUD tables, CRD products on menu and products management on each table.
 * [Author](#Author)
 * [License](#License)
 
-## :scroll: Features
+## Features
+:scroll: <br/>
 
 * Create Table.
 * View Tables.

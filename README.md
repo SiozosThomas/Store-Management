@@ -1,7 +1,7 @@
 # StoreManagement
 
-This is a store management app that provides the main functions you'd expect from a store management app,
-such as CRUD tables, CRD products on menu and manage products on each table.
+This is a store management app that provides main functions you'd expect from a store management app,
+such as CRUD tables, CRD products on menu and products management on each table.
 
 ![View_Tables](https://github.com/SiozosThomas/Store-Management/blob/master/examples/table-list.png)
 
@@ -20,6 +20,7 @@ such as CRUD tables, CRD products on menu and manage products on each table.
 * Sum of selected products on each table.
 
 ## Setup
+![Custom badge](https://img.shields.io/endpoint?color=%23CB3837&logo=NPM&style=plastic&url=https%3A%2F%2Ff54vff4z3g0b.runkit.sh%2F)
 
 - Clone this repo to your desktop
 - npm install

@@ -43,17 +43,20 @@ such as CRUD tables, CRD products on menu and products management on each table.
   - Fourth Step, connect your app with your database.
   - You are ready!
 
-## :computer: Develop
+## Develop
+:computer:<br/>
 
 - Run `ng serve` for Angular, running at localhost:4200
 - Run `npm run start:server` for API, running at localhost:3000
 - Open your browser at localhost:4200
 
-## :wrench: Build
+## Build
+:wrench:<br/>
 
 Run `ng build` to build the project. The build artifacts will be stored in the `app-production/` directory. Use the `--prod` flag for a production build.
 
-## :whale: Dockerize
+## Dockerize
+:whale:<br/>
 
 You need **backend/Dockerfile** , **./Dockerfile** and **docker-compose.yaml** files.<br/>
 Also, if you use Hyper-V engine, you have to put your directory on "File Sharing".<br/>
@@ -100,11 +103,13 @@ If you use local mongodb.(Container understands that that means localhost).
 
 ![Selected_Sum](https://github.com/SiozosThomas/Store-Management/blob/master/examples/selected.png)
 
-## :pencil2: Author
+## Author
+:pencil2:<br/>
 
 **Siozos Thomas**
 
-## :key: License
+## License
+:key:<br/>
 
 You can check out the full lecense [here](https://github.com/SiozosThomas/Store-Management/blob/master/LICENSE)
 This project is lecensed under the terms of the **MIT** license.

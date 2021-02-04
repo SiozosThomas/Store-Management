@@ -7,14 +7,14 @@ such as CRUD tables, CRD products on menu and products management on each table.
 
 ## Table of Contents
 
-* [Features](#:scroll:-Features)
+* [Features](#Features)
 * [Setup](#Setup)
-* [Develop](#:computer:-Develop)
-* [Build](#:wrench:-Build)
-* [Dockerize](#:whale:-Dockerize)
+* [Develop](#Develop)
+* [Build](#Build)
+* [Dockerize](#Dockerize)
 * [Examples](#Examples)
-* [Author](#:pencil2:-Author)
-* [License](#:key:-License)
+* [Author](#Author)
+* [License](#License)
 
 ## :scroll: Features
 

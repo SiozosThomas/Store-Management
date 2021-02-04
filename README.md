@@ -5,6 +5,17 @@ such as CRUD tables, CRD products on menu and products management on each table.
 
 ![View_Tables](https://github.com/SiozosThomas/Store-Management/blob/master/examples/table-list.png)
 
+## Table of Contents
+
+* [Features](#:scroll:-Features)
+* [Setup](#Setup)
+* [Develop](#:computer:-Develop)
+* [Build](#:wrench:-Build)
+* [Dockerize](#:whale:-Dockerize)
+* [Examples](#Examples)
+* [Author](#:pencil2:-Author)
+* [License](#:key:-License)
+
 ## :scroll: Features
 
 * Create Table.
@@ -40,6 +51,23 @@ such as CRUD tables, CRD products on menu and products management on each table.
 ## :wrench: Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `app-production/` directory. Use the `--prod` flag for a production build.
+
+## :whale: Dockerize
+
+You need **backend/Dockerfile** , **./Dockerfile** and **docker-compose.yaml** files.<br/>
+Also, if you use Hyper-V engine, you have to put your directory on "File Sharing".<br/>
+
+### Run docker-compose
+
+Run the command **docker-compose up -d** (for detach mode, remove -d if you don't want detach mode) in the directory with the docker-compose file.<br/>
+If you want to close it, you can from your docker-desktop/dashboard or with the command **docker-compose down**.<br/>
+
+**!NOTE**<br/>
+You have to change your mongodb domain (backend/app.js) to:
+```
+ mongodb://host.docker.internal:27017/dbname
+```
+If you use local mongodb.(Container understands that that means localhost).
 
 ## Examples
 

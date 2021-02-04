@@ -24,6 +24,8 @@ app.use((req, res, next) => {
     next();
 });
 
+// If you want to connect your node with you local mongodb
+// Use "mongodb://127.0.0.1:27017/dbname",
 mongoose.connect("mongodb+srv://" + process.env.MONGO_ADMIN + 
     ":" + process.env.MONGO_PASS + "@" + 
     process.env.MONGO_DB_NAME + ".kuldc.mongodb.net/" +
